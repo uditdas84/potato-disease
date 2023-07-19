@@ -1,8 +1,9 @@
-tensorflow==2.5.0
-fastapi
-uvicorn
+tensorflow
+fastapi == 0.100.0
+uvicorn[standard]
 python-multipart
 pillow
 tensorflow-serving-api==2.5.0
 matplotlib
 numpy
+python-multipart
