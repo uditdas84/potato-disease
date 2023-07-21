@@ -62,8 +62,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    height: "93vh",
-    marginTop: "8px",
+    // height: "93vh",
+    // marginTop: "8px",
+    height: "100dvh"
   },
   imageCard: {
     margin: "auto",
@@ -143,15 +144,19 @@ const useStyles = makeStyles((theme) => ({
     color: '#be6a77 !important',
   }
 }));
+
 export const ImageUpload = () => {
   const classes = useStyles();
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
-  const [data, setData] = useState();
+  const [data, setData] = useState({});
+  const [accuracy, setAccuracy]=useState(0);
   const [image, setImage] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  let confidence = 0;
+  // let confidence = 0;
 
+
+  // fetch
   const sendFile = async () => {
     if (image) {
       let formData = new FormData();
@@ -162,6 +167,10 @@ export const ImageUpload = () => {
         data: formData,
       });
       if (res.status === 200) {
+        console.log(res);
+        const acc=parseFloat(res.data.confidence*100).toFixed(2);
+        console.log(acc);
+        setAccuracy(acc);
         setData(res.data);
       }
       setIsloading(false);
@@ -204,13 +213,14 @@ export const ImageUpload = () => {
     setImage(true);
   };
 
-  if (data) {
-    confidence = (parseFloat(data.confidence) * 100).toFixed(2);
-  }
+  // if (data) {
+  //   const acc = (parseFloat(Number(data.confidance)) * 100).toFixed(2);
+  //   setAccuracy(acc);
+  // }
 
   return (
     <React.Fragment>
-      <AppBar position="static" className={classes.appbar}>
+      {/* <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             Personal Project: Potato Disease Classifications
@@ -218,8 +228,19 @@ export const ImageUpload = () => {
           <div className={classes.grow} />
           <Avatar src={cblogo}></Avatar>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
+      
       <Container maxWidth={false} className={classes.mainContainer} disableGutters={true}>
+      <div className="title" style={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundColor: 'transparent',
+        fontSize: '2rem',
+        textAlign: 'center',
+      }}>
+        <h1>Potato disease classification</h1>
+      </div>
         <Grid
           className={classes.gridContainer}
           container
@@ -261,7 +282,7 @@ export const ImageUpload = () => {
                           {data.class}
                         </TableCell>
                         <TableCell align="right" className={classes.tableCell}>
-                          {confidence}%
+                          {accuracy}%  {/* Ghapla */}
                         </TableCell>
                       </TableRow>
                     </TableBody>
