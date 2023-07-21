@@ -213,7 +213,7 @@ export const ImageUpload = () => {
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-            CodeBasics: Potato Disease Classification
+            Personal Project: Potato Disease Classifications
           </Typography>
           <div className={classes.grow} />
           <Avatar src={cblogo}></Avatar>
@@ -260,7 +260,9 @@ export const ImageUpload = () => {
                         <TableCell component="th" scope="row" className={classes.tableCell}>
                           {data.class}
                         </TableCell>
-                        <TableCell align="right" className={classes.tableCell}>{confidence}%</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>
+                          {confidence}%
+                        </TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
